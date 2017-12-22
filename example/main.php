@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../../../vendor/autoload.php';
 
 
 $config = [
@@ -16,7 +16,7 @@ class App extends Main{
 
     public function __construct(){
 
-        $this->setCycle(['cycle' => 1000000]);
+        $this->setCycle(1000000);
     }
 
     public function main(){
