@@ -4,18 +4,18 @@ namespace TradeFace\PhpDaemon;
 
 class Main{
 
-    private $config = [];
+    private $cycle = 1000000;
     
     public function __construct(array $config = []){
 
         if (sizeof($config) == 0) return;
         if (!isset($config['cycle'])) return;
-        $this->config['cycle'] = $config['cycle'];
+        $this->cycle = $config['cycle'];
     }
 
-	public function setConfig(array $config){
+	public function setCycle(int $cycle){
 
-		$this->config = $config;
+		$this->cycle = $cycle;
 	}
 
     public function run(){
@@ -23,7 +23,7 @@ class Main{
         while(true){
             pcntl_signal_dispatch();
             $this->main();
-            usleep($this->config['cycle']);
+            usleep($this->cycle);
             if(Signal::get() == SIGHUP){
                 Signal::reset();
                 break;

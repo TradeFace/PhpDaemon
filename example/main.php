@@ -16,7 +16,7 @@ class App extends Main{
 
     public function __construct(){
 
-        $this->setConfig(['cycle' => 1000000]);
+        $this->setCycle(['cycle' => 1000000]);
     }
 
     public function main(){
