@@ -24,3 +24,7 @@ add the following to composer.json
     }
 ],
 ```
+
+Example
+---
+Please check out the example on setup details

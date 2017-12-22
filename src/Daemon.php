@@ -52,8 +52,7 @@ class Daemon {
     }
 
     private function run(){
-
-    	$this->class->setConfig($this->config);//update config
+    	
         while(true){   
             $this->class->run();
         }
