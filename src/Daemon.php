@@ -1,6 +1,6 @@
 <?php
 
-namespace TradeFace\PhpDeamon;
+namespace TradeFace\PhpDaemon;
 
 class Daemon {
 

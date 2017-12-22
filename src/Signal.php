@@ -1,6 +1,6 @@
 <?php
 
-namespace TradeFace\PhpDeamon;
+namespace TradeFace\PhpDaemon;
 
 final class Signal{   
     public static $signo = 0;
