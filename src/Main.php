@@ -11,7 +11,7 @@ class Main
     {
         if (sizeof($config) == 0) return;
         if (!isset($config['cycle'])) return;
-        $this->cycle = $config['cycle'];
+        $this->_cycle = $config['cycle'];
     }
 
     public function setCycle(int $cycle)
