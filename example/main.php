@@ -12,15 +12,16 @@ $config = [
 use TradeFace\PhpDaemon\Daemon;
 use TradeFace\PhpDaemon\Main;
 
-class App extends Main{
+class App extends Main
+{
 
-    public function __construct(){
-
+    public function __construct()
+    {
         $this->setCycle(1000000);
     }
 
-    public function main(){
-
+    public function main()
+    {
         echo 'Next'.PHP_EOL;
     }
 }

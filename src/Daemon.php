@@ -2,14 +2,14 @@
 
 namespace TradeFace\PhpDaemon;
 
-class Daemon {
-
-    const sleep    	 = 5;
+class Daemon
+{
+    const SLEEP = 5;
 
     protected $config    = [];
 
-    public function __construct(array $config, $class) {
-
+    public function __construct(array $config, $class) 
+    {
         $this->pidfile = '/var/run/'.basename(get_class($class), '.php').'.pid';
        
         $this->config = $config;
@@ -21,17 +21,18 @@ class Daemon {
         $this->signal();
     }
 
-    public function signal(){
-
-        pcntl_signal(SIGHUP,  function($signo) /*use ()*/{
-            printf("The process has been reload.\n");
-            Signal::set($signo);
-        });
+    public function signal()
+    {
+        pcntl_signal(SIGHUP,  function ($signo) /*use ()*/{
+                printf("The process has been reload.\n");
+                Signal::set($signo);
+            }
+        );
 
     }
 
-    private function daemon(){
-
+    private function daemon()
+    {
         if (file_exists($this->pidfile)) {
             echo "The file $this->pidfile exists.\n";
             exit();
@@ -51,29 +52,29 @@ class Daemon {
         }
     }
 
-    private function run(){
-    	
-        while(true){   
+    private function run()
+    {
+        while (true) {   
             $this->class->run();
         }
     }
 
-    private function foreground(){
-
+    private function foreground()
+    {
         $this->run();
     }
 
-    private function start(){
-
+    private function start()
+    {
         $pid = $this->daemon();
-        for(;;){
+        for (;;) {
             $this->run();
-            sleep(self::sleep);
+            sleep(self::SLEEP);
         }
     }
 
-    private function stop(){
-
+    private function stop()
+    {
         if (file_exists($this->pidfile)) {
             $pid = file_get_contents($this->pidfile);
             posix_kill($pid, 9);
@@ -81,48 +82,48 @@ class Daemon {
         }
     }
 
-    private function reload(){
-
+    private function reload()
+    {
         if (file_exists($this->pidfile)) {
             $pid = file_get_contents($this->pidfile);
             posix_kill($pid, SIGHUP);
         }
     }   
 
-    private function status(){
-
+    private function status()
+    {
         if (file_exists($this->pidfile)) {
             $pid = file_get_contents($this->pidfile);
             system(sprintf("ps ax | grep %s | grep -v grep", $pid));
         }
     }
 
-    private function help($proc){
-
+    private function help($proc)
+    {
         printf("%s start | stop | restart | status | foreground | help \n", $proc);
     }
 
-    public function main($argv){
-
-        if(count($argv) < 2){
+    public function main($argv)
+    {
+        if (count($argv) < 2) {
             $this->help($argv[0]);
             printf("please input help parameter\n");
             exit();
         }
-        if($argv[1] === 'stop'){
+        if ($argv[1] === 'stop') {
             $this->stop();
-        }else if($argv[1] === 'start'){
+        } else if ($argv[1] === 'start') {
             $this->start();
-        }else if($argv[1] === 'restart'){
+        } else if ($argv[1] === 'restart') {
             $this->stop();
             $this->start();
-        }else if($argv[1] === 'status'){
+        } else if ($argv[1] === 'status') {
             $this->status();
-        }else if($argv[1] === 'foreground'){
+        } else if ($argv[1] === 'foreground') {
             $this->foreground();
-        }else if($argv[1] === 'reload'){
+        } else if ($argv[1] === 'reload') {
             $this->reload();
-        }else{
+        } else {
             $this->help($argv[0]);
         }
     }

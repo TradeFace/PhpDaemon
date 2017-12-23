@@ -2,29 +2,30 @@
 
 namespace TradeFace\PhpDaemon;
 
-class Main{
+class Main
+{
 
-    private $cycle = 1000000;
+    private $_cycle = 1000000;
     
-    public function __construct(array $config = []){
-
+    public function __construct(array $config = [])
+    {
         if (sizeof($config) == 0) return;
         if (!isset($config['cycle'])) return;
         $this->cycle = $config['cycle'];
     }
 
-	public function setCycle(int $cycle){
+    public function setCycle(int $cycle)
+    {
+        $this->_cycle = $cycle;
+    }
 
-		$this->cycle = $cycle;
-	}
-
-    public function run(){
-
-        while(true){
+    public function run()
+    {
+        while (true) {
             pcntl_signal_dispatch();
             $this->main();
-            usleep($this->cycle);
-            if(Signal::get() == SIGHUP){
+            usleep($this->_cycle);
+            if (Signal::get() == SIGHUP) {
                 Signal::reset();
                 break;
             }
@@ -33,7 +34,8 @@ class Main{
     }
 
     //main process hook to be overwritten
-    protected function main(){
+    protected function main()
+    {
 
-	}
+    }
 }
